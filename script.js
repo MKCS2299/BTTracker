@@ -12,7 +12,12 @@ calendar.innerHTML=""
 const year = currentDate.getFullYear()
 const month = currentDate.getMonth()
 
-const firstDay = new Date(year,month,1).getDay()
+let firstDay = new Date(year,month,1).getDay()
+
+/* convert sunday start to monday start */
+
+firstDay = firstDay === 0 ? 6 : firstDay - 1
+
 const daysInMonth = new Date(year,month+1,0).getDate()
 
 monthYear.innerText =
