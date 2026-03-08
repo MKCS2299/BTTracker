@@ -2,26 +2,24 @@ const calendar = document.getElementById("calendar")
 const monthYear = document.getElementById("monthYear")
 const emojiPicker = document.getElementById("emojiPicker")
 
-let selectedDate = null
-let currentDate = new Date()
+let selectedDate=null
+let currentDate=new Date()
 
 function renderCalendar(){
 
 calendar.innerHTML=""
 
-const year = currentDate.getFullYear()
-const month = currentDate.getMonth()
+const year=currentDate.getFullYear()
+const month=currentDate.getMonth()
 
-let firstDay = new Date(year,month,1).getDay()
+let firstDay=new Date(year,month,1).getDay()
 
-/* convert sunday start to monday start */
+firstDay = firstDay===0 ? 6 : firstDay-1
 
-firstDay = firstDay === 0 ? 6 : firstDay - 1
+const daysInMonth=new Date(year,month+1,0).getDate()
 
-const daysInMonth = new Date(year,month+1,0).getDate()
-
-monthYear.innerText =
-currentDate.toLocaleString("default",{month:"long"}) + " " + year
+monthYear.innerText=
+currentDate.toLocaleString("default",{month:"long"})+" "+year
 
 for(let i=0;i<firstDay;i++){
 
@@ -37,7 +35,7 @@ dayBox.className="day"
 
 let key=`${year}-${month}-${day}`
 
-let saved = localStorage.getItem(key)
+let saved=localStorage.getItem(key)
 
 let icon=""
 
@@ -73,7 +71,7 @@ calendar.appendChild(dayBox)
 
 }
 
-document.querySelectorAll("#emojiPicker img, #emojiPicker span").forEach(icon=>{
+document.querySelectorAll("#emojiPicker img, .clearBtn").forEach(icon=>{
 
 icon.onclick=()=>{
 
@@ -81,12 +79,12 @@ let value=icon.dataset.emoji
 
 if(value==="clear"){
 localStorage.removeItem(selectedDate)
-}
-else{
+}else{
 localStorage.setItem(selectedDate,value)
 }
 
 emojiPicker.style.display="none"
+
 renderCalendar()
 
 }
