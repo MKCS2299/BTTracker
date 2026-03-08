@@ -1,9 +1,10 @@
 const calendar = document.getElementById("calendar")
 const monthYear = document.getElementById("monthYear")
 const emojiPicker = document.getElementById("emojiPicker")
+const popup = document.getElementById("btPopup")
 
-let selectedDate=null
-let currentDate=new Date()
+let selectedDate = null
+let currentDate = new Date()
 
 function renderCalendar(){
 
@@ -18,7 +19,7 @@ firstDay = firstDay===0 ? 6 : firstDay-1
 
 const daysInMonth=new Date(year,month+1,0).getDate()
 
-monthYear.innerText=
+monthYear.innerText =
 currentDate.toLocaleString("default",{month:"long"})+" "+year
 
 for(let i=0;i<firstDay;i++){
@@ -78,9 +79,25 @@ icon.onclick=()=>{
 let value=icon.dataset.emoji
 
 if(value==="clear"){
+
 localStorage.removeItem(selectedDate)
+
 }else{
+
 localStorage.setItem(selectedDate,value)
+
+if(value==="major"){
+
+popup.style.display="block"
+
+setTimeout(()=>{
+
+popup.style.display="none"
+
+},2000)
+
+}
+
 }
 
 emojiPicker.style.display="none"
@@ -94,6 +111,7 @@ renderCalendar()
 document.getElementById("prevMonth").onclick=()=>{
 
 currentDate.setMonth(currentDate.getMonth()-1)
+
 renderCalendar()
 
 }
@@ -101,6 +119,7 @@ renderCalendar()
 document.getElementById("nextMonth").onclick=()=>{
 
 currentDate.setMonth(currentDate.getMonth()+1)
+
 renderCalendar()
 
 }
